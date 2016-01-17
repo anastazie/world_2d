@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<body> 
+<script>
+  document.write('<script src="http://' + (location.host || 'localhost').split(':')[0] +
+  ':35729/livereload.js?snipver=1"></' + 'script>')
+</script>
+
+<svg width="1000" height="1000" id='svg1' version="1.1"
+  xmlns="http://www.w3.org/2000/svg">
+</svg>
+
+
+<script type="text/javascript">
+
+function addCircle(cx, cy, r) {
+	var svg = document.getElementById("svg1");
+	var newCircle = document.createElementNS(svg.namespaceURI, "circle");
+	newCircle.setAttribute("cx",cx);
+	newCircle.setAttribute("cy",cy);
+	newCircle.setAttribute("r",r);
+	svg.appendChild(newCircle);
+}
+for (var posX = 5; posX < 200; posX += 15) {
+	for (var posY = 5; posY < 200; posY += 15) {
+		addCircle(posX,posY,5);
+	};
+		
+};
+
+document.querySelector("#svg1").addEventListener("click", function(event) {
+	console.log(event);
+    addCircle(event.offsetX, event.offsetY, 5);
+  }, false);
+
+
+function moveCircles(){
+	var circles = document.querySelectorAll("circle");
+	Array.prototype.forEach.call(circles,
+		function(element){
+			var cx = parseInt(element.getAttribute("cx"), 10);
+			element.setAttribute("cx",cx+1);
+		}
+	);
+}
+window.setInterval(moveCircles, 30);
+
+
+
+
+</script>
+
+</body>
+</html>
